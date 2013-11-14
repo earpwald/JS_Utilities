@@ -126,3 +126,41 @@ function getElementNames(elementArray) {
 /*
 * End of Helper functions
 */
+
+/*************************************************************************************************************
+*		Test if elements empty using underscore and jquery
+*			Params - controls is designed to be a jquery selector that will be used to find the controls
+*					 to be tested.
+*			Logic  - this function uses the unscore chain method to join together filter() and isEmpty(). It
+*					 does this by iterating over our group of elements found by controls which is passed into
+*					 the filter function.  Filter returns an array of objects where its condition is met i.e.
+*					 where the element value is an empty string.  This returned list is then passed to isEmpty
+*					 which will return true for [] or false for [...].  The chain is stopped using value() 
+*					 that will return the boolean result to the calling method.
+*
+*			Variations - areControlsEmpty() is generic and should work for textbox/dropdown/etc.
+*					   - areRadioControlsEmpty() is specific to radio buttons and will check is unset
+*************************************************************************************************************/
+
+function areControlsEmpty(controls) {
+	return _.chain(controls)
+	.filter(function(element) { return element.value !== "" })
+	.isEmpty()
+	.value();
+}
+
+function areRadioControlsEmpty(controls) {
+	return _.chain(controls)
+	.filter(function(element) { return typeof element != "undefined" })
+	.isEmpty()
+	.value();
+}
+
+/************************************************************************************************************/
+
+/*
+*		NB on our blur function we need to set it so that it checks that the indemnitors previous to it are 
+*		completed. We can do this by using validateRequiredFields() to ensure that the previous indemnitors
+*		are completed.  Might be able to achieve this with underscore again to remove the need for a for loop.
+*		
+*/
