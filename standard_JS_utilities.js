@@ -71,7 +71,7 @@ function validateTextBoxRequired(controls) {
 * Output - an array containing the name of any elements that are currently empty
 */
 function validateTextBoxMaxLength(controls, maxLength) {
-	var errorsFound = _.filter(controls + "[typmaxLengthe=text]", function(element){
+	var errorsFound = _.filter(controls + "[type=text]", function(element){
 		return element.value.length > maxLength;
 	});
 
