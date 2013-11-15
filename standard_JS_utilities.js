@@ -164,3 +164,34 @@ function areRadioControlsEmpty(controls) {
 *		are completed.  Might be able to achieve this with underscore again to remove the need for a for loop.
 *		
 */
+
+/*************************************************************************************************************
+*	Closure for properties
+*			Properties are added to the constants function as "private variables".  Our Closure then sets out
+*			what is returned and where.  This extracts the constant variables from the global namespace and
+*			allows us to removed explicitly placed strings and values from our code providing greater readability
+*			of the code.
+*
+*		To Add - within the constants function add a variable for the value you wish to be abstracted.
+*			   - within theClosure function add the identifier for the value and the variable to be returned
+*				 in the format "Identifier: _privateVariable.
+*			   - if not already done, declare a variable for your closure i.e. var properties = constants();
+*			   - access your abstracted variable by using properties().Identifier
+*************************************************************************************************************/
+
+function test() {
+	var properties = constants();
+	alert (properties().HelloString);
+	alert (properties().WorldString);
+}
+
+function constants(){
+	var _helloString = "Hello";
+	var _worldString = "World";
+
+	return (function theClosure() {
+		return {	HelloString: _helloString, 
+					WorldString: _worldString
+			   };
+	});
+}
