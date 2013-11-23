@@ -1,0 +1,27 @@
+<html>
+
+<head>
+</head>
+<body>
+<script type="text/javascript" src="underscore-min.js"></script>
+<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="Functional_JS.js"></script>
+
+<script type="text/javascript">
+
+function doWhen() {
+	validateControls($(".idm"), checkFormatSsn, alert);
+}
+
+function doAlso() {
+	formatField($(".idm"), formatSsn);
+}
+
+</script>
+
+<input type="text" class="idm" onblur="javascript: doAlso();"/>
+
+<input type="submit" onclick="javascript: doWhen();" />
+
+</body>
+</html>

@@ -70,17 +70,17 @@
 /**************************************************************************************************************************/
 
     function formatField(element, formatFunc) {
-        return formatFunc(element.value.replace(/[^0-9_]/gi, ''));
+        element[0].value = formatFunc(element[0].value.replace(/[^0-9]/gi, ''));
     }
 
-    function formatZIP(value)
+    function formatZip(value)
     {
         if (value.length == 9)
             return value.substr(0,5) + "-" + value.substr(5,4);
         return value;
     }
 
-    function formatSSN(value)
+    function formatSsn(value)
     {
         if (value.length == 9) 
             return value.substr(0,3) + "-" + value.substr(3,2) + "-" + value.substr(5,4);
@@ -92,11 +92,11 @@
     function validate() {
         errorMessage = "";
 
-        validateControls($('.idmSSN'), checkFormatSSN, ErrorHandlerRegex);
-        validateControls($('.idmZIP'), checkFormatZIP, ErrorHandlerRegex);
+        validateControls($('.idmSSN'), checkFormatSsn, ErrorHandlerRegex);
+        validateControls($('.idmZIP'), checkFormatZip, ErrorHandlerRegex);
 
-        validateControls($('.idmSSN'), checkLengthSSN, ErrorHandlerLength);
-        validateControls($('.idmZIP'), checkLengthZIP, ErrorHandlerLength);
+        validateControls($('.idmSSN'), checkLengthSsn, ErrorHandlerLength);
+        validateControls($('.idmZIP'), checkLengthZip, ErrorHandlerLength);
 
         validateControls($('.percentageOwnership'), checkPercentageRange, ErrorHandlerRange);
 
@@ -106,26 +106,26 @@
     }
 
     function validateControls(controls, validateFunc, errorHandlerFunc) {
-        var errorControls = _.filter(controls, validateFunc(element));
+        var errorControls = _.filter(controls, validateFunc);
 
         if (! _.isEmpty(errorControls))
             errorHandlerFunc(errorControls);
     }
 
-    function checkLengthSSN(element) {
+    function checkLengthSsn(element) {
         if ((element.value.length != 11) && (element.value != '')) 
                 return true;
         return false;
     }
 
-    function checkLengthZIP(element) {
+    function checkLengthZip(element) {
         if ((element.value.length != 10 || element.value.length != 5) && (element.value != ''))
             return true;
         return false;
     }
 
     function checkPercentageRange(element) {
-        if (element.value > 100 || element.value < 0)
+        if (pasreInt(element.value) > 100 || pasreInt(element.value) < 0)
             return true;
         return false;
     }
@@ -136,11 +136,11 @@
         return false;
     }
     
-    function checkFormatSSN(element) {
+    function checkFormatSsn(element) {
         return checkElementRegex(element, /^\d{3}-\d{2}-\d{4}$/);
     }
 
-    function checkFormatZIP(element) {
+    function checkFormatZip(element) {
         return checkElementRegex(element, /^\d{5}$|^\d{5}-\d{4}$/);
     }
 
