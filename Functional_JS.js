@@ -150,11 +150,22 @@
         return false;
     }
 
-     function validateRequiredDdl(ddlControl) {
+    function validateRequiredDdl(ddlControl) {
         var ddlState = $(ddlControl + " option:selected").text();
         if (ddlState === '') {
             ErrorHandlerRequired($('select' + ddlControl));
         }
+    }
+
+    /* NEW */
+    function validateMarriedTo(ddlControl) {
+        if (!checkIndemnitor(ddlControl.text()))
+            ErrorHandlerMarriedTo(ddlControl);
+    }
+
+    /* NEW */
+    function ErrorHandlerMarriedTo(ddlControl) {
+        AddErrorMessage("Indemnitor " + getIndemnitor(ddlControl.name) + " cannot be married to Indmenitor " + ddlControl.text() + " as they do not yet exist.");
     }
 
     function validateReqiredFields(indemnitor) {
@@ -215,4 +226,16 @@
         
         //Home state ddl check ...
         validateRequiredDdl(".idm" + indemnitor + "Input");
+    }
+
+/*********************************************************************************************************************************************/
+
+    function testArray(indemnitor) {
+        var array = [
+                       { "MainTextBoxes": "input.idm" + indemnitor + "Input[type='text']"},
+                        {"MarriedRadioB": ".idm" + indemnitor + "Married input[type='radio']"}
+                    ];
+
+        _.findWhere(array,"MainTextBoxes")
+        _.pluck(array, "MainTextBoxes");
     }
